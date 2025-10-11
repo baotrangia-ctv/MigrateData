@@ -1,0 +1,35 @@
+{
+  "_tag": {
+    "type": "ecaEventDesc"
+  },
+  "_entityId": "BmvZz8ma",
+  "customEventDefines": {
+    "signal_38979720": {
+      "name": "OnTapButton",
+      "eventType": 0,
+      "enitityType": "Entity",
+      "typeID": 100000,
+      "props": [
+        {
+          "name": "player",
+          "value": "Player",
+          "key": 1
+        },
+        {
+          "name": "button",
+          "value": "HudButtonWidget",
+          "key": 2
+        }
+      ],
+      "propCount": 2,
+      "apiTargetV2": "both",
+      "version": 45,
+      "key": "signal_38979720"
+    }
+  },
+  "customName": {
+    "OnTapButton": "signal_38979720"
+  },
+  "children": []
+}
+//"{FE:{"v":"1.14.3883376","c":{"FF":5001},"s":100}

@@ -1,0 +1,41 @@
+{
+  "_tag": {
+    "type": "ecaDesc",
+    "resourceId": ""
+  },
+  "_entityId": "XWrUWMBL",
+  "children": [],
+  "prefabVariant": null,
+  "activeValue": {
+    "selfValue": true,
+    "valueTag": "activeValue"
+  },
+  "unlockedValue": {
+    "selfValue": true,
+    "valueTag": "unlockedValue"
+  },
+  "editorLockValue": false,
+  "editorVisibleValue": true,
+  "TypeDefines": {
+    "HudButtonWidget": {
+      "label": "UI Widget Button",
+      "name": "HudButtonWidget",
+      "bases": [
+        "HudWidget"
+      ],
+      "ecaScripts": [
+        {
+          "fileId": "0spp7mdgipxj-me6l9dld-vsaohmqstc",
+          "_tag": {
+            "type": "GFileRefer"
+          },
+          "fileType": "ugcscript"
+        }
+      ],
+      "typeID": 41,
+      "PropDefines": [],
+      "IsPartial": true
+    }
+  }
+}
+//"{FE:{"v":"1.14.3883376","c":{"FF":5001},"s":100}

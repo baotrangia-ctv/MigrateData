@@ -1,0 +1,27 @@
+import "Hud.fcc" as Hud
+import "List.fcc" as List
+import "StdLibrary.fcc" as StdLib
+import "EditorGenLib.fcc" as EditorLib
+
+import "../HUDs/HudMigrateData.fcg" as HudMigrateData
+
+graph CustomUIUtils {
+    event OnTapButton(player entity<Player>, button entity<UIWidgetButton>) {
+        // ------------ Chat ------------
+        if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIMigrateData.MigrateButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed MigrateButton")
+
+            start player<HudMigrateData>.HandleMigrateData()
+        } else {}
+    }
+
+    func IsContainButton(button entity<UIWidget>, player entity<Player>, buttonIdsList List<CustomHudWidgetID>) bool {
+        for key, buttonId in buttonIdsList {
+            if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, buttonId) {
+                return true
+            }
+        }
+
+        return false
+    }
+}
