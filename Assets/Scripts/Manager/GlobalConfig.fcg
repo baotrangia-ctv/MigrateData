@@ -1,0 +1,366 @@
+import "Map.fcc" as Map
+import "List.fcc" as List
+import "CSVData.fcc" as CSVData
+import "Convert.fcc" as Convert
+import "Strings.fcc" as Strings
+import "StdLibrary.fcc" as StdLib
+import "EditorGenLib.fcc" as EditorLib
+
+static graph GlobalConfig {
+    MOB_COUNT int = 56
+    MUTATION_COUNT int = 5
+    REBIRTH_COUNT int = 13
+    INDEX_COLUMN int = 1
+    VALUE_ROW int = 3
+
+    _MobSpawnInterval int
+    _PlayerMoveSpeed float
+    _PlayerStealSpeed float
+    _PlayerHitInvulnerableTime int
+    _DurationRiseSpeed int
+    _SpeedRiseItem float
+    _DurationSuperWeapon int
+
+    //Mob config maps
+    _MobId2Name Map<int, string>
+    _MobId2Rarity Map<int, string>
+    _MobId2Value Map<int, List<int>>
+    _MobId2Price Map<int, List<int>>
+    _MobId2Weight Map<int, float>
+    _MobId2Rank Map<int, int>
+    _MobId2ThumbnailKey Map<int, string>
+
+    //Mutation config maps
+    _MutationId2Name Map<int, string>
+    _MutationId2MaterialKey Map<int, string>
+    _MutationId2EffectKey Map<int, string>
+    _MutationId2Multiplier Map<int, float>
+    _MutationId2Weight Map<int, float>
+
+    //Rebirth config maps
+    _RebirthId2BaseLockTime Map<int, int>
+    _RebirthId2StartingMoney Map<int, List<int>>
+    _RebirthId2MoneyMultiplier Map<int, float>
+    _RebirthId2BaseLevel Map<int, int>
+    _RebirthId2MobAmount Map<int, int>
+    _RebirthId2NextLevelMoney Map<int, List<int>>
+    _RebirthId2NextLevelMob Map<int, List<int>>
+
+    event OnAwake() {
+        _MobId2Name = Map<int, string>{}
+        _MobId2Rarity = Map<int, string>{}
+        _MobId2Value = Map<int, List<int>>{}
+        _MobId2Price = Map<int, List<int>>{}
+        _MobId2Weight = Map<int, float>{}
+        _MobId2Rank = Map<int, int>{}
+        _MobId2ThumbnailKey = Map<int, string>{}
+
+        _MutationId2Name = Map<int, string>{}
+        _MutationId2MaterialKey = Map<int, string>{}
+        _MutationId2EffectKey = Map<int, string>{}
+        _MutationId2Multiplier = Map<int, float>{}
+        _MutationId2Weight = Map<int, float>{}
+
+        _RebirthId2BaseLockTime = Map<int, int>{}
+        _RebirthId2StartingMoney = Map<int, List<int>>{}
+        _RebirthId2MoneyMultiplier = Map<int, float>{}
+        _RebirthId2BaseLevel = Map<int, int>{}
+        _RebirthId2MobAmount = Map<int, int>{}
+        _RebirthId2NextLevelMoney = Map<int, List<int>>{}
+        _RebirthId2NextLevelMob = Map<int, List<int>>{}
+
+        GetMobConfigFromCSV()
+        GetMutationConfigFromCSV()
+        GetRebirthConfigFromCSV()
+    }
+
+    func GetMobConfigFromCSV() {
+        for mobIndex = 1, MOB_COUNT + 1, 1 {
+            var rowInfo = CSVData.ReadCSVRowByKey(EResCSV.Mob, INDEX_COLUMN, mobIndex) as List<object>
+            _MobId2Name[mobIndex] = rowInfo[MobConfigEnum.Name as int] as string
+            _MobId2Rarity[mobIndex] = rowInfo[MobConfigEnum.Rarity as int] as string
+            // _MobId2Value[mobIndex] = BigNumberHandler.ConvertStringToListNum(rowInfo[MobConfigEnum.Value as int] as string)
+            // _MobId2Price[mobIndex] = BigNumberHandler.ConvertStringToListNum(rowInfo[MobConfigEnum.Price as int] as string)
+            _MobId2Weight[mobIndex] = rowInfo[MobConfigEnum.Weight as int] as float
+            _MobId2Rank[mobIndex] = rowInfo[MobConfigEnum.Rank as int] as int
+            _MobId2ThumbnailKey[mobIndex] = rowInfo[MobConfigEnum.Name as int] as string
+        }
+    }
+
+    func GetMutationConfigFromCSV() {
+        for mutationIndex = 1, MUTATION_COUNT + 1, 1 {
+            var rowInfo = CSVData.ReadCSVRowByKey(EResCSV.Mutation, INDEX_COLUMN, mutationIndex) as List<object>
+            _MutationId2Name[mutationIndex] = rowInfo[MutationConfigEnum.Name as int] as string
+            _MutationId2MaterialKey[mutationIndex] = rowInfo[MutationConfigEnum.MaterialKey as int] as string
+            _MutationId2EffectKey[mutationIndex] = rowInfo[MutationConfigEnum.EffectKey as int] as string
+            var multiplier string = rowInfo[MutationConfigEnum.Multiplier as int] as string
+            StringToFloat(multiplier, out var multiplierFloat, out var isSuccess)
+            if isSuccess {
+                _MutationId2Multiplier[mutationIndex] = multiplierFloat
+            }
+            _MutationId2Weight[mutationIndex] = rowInfo[MutationConfigEnum.Weight as int] as float
+        }
+    }
+
+    func GetRebirthConfigFromCSV() {
+        for rebirthIndex = 1, REBIRTH_COUNT + 1, 1 {
+            var rowInfo = CSVData.ReadCSVRowByKey(EResCSV.Rebirth, INDEX_COLUMN, rebirthIndex) as List<object>
+            _RebirthId2BaseLockTime[rebirthIndex] = rowInfo[RebirthConfigEnum.BaseLockTime as int] as int
+            // _RebirthId2StartingMoney[rebirthIndex] = BigNumberHandler.ConvertStringToListNum(rowInfo[RebirthConfigEnum.StartingMoney as int] as string)
+            _RebirthId2MoneyMultiplier[rebirthIndex] = rowInfo[RebirthConfigEnum.MoneyMultiplier as int] as float
+            _RebirthId2BaseLevel[rebirthIndex] = rowInfo[RebirthConfigEnum.BaseLevel as int] as int
+            _RebirthId2MobAmount[rebirthIndex] = rowInfo[RebirthConfigEnum.MobAmount as int] as int
+            // _RebirthId2NextLevelMoney[rebirthIndex] = BigNumberHandler.ConvertStringToListNum(rowInfo[RebirthConfigEnum.NextLevelMoney as int] as string)
+            _RebirthId2NextLevelMob[rebirthIndex] = ConvertStringToListInt(rowInfo[RebirthConfigEnum.NextLevelMobList as int] as string)
+        }
+    }
+
+    // Helper: Converts comma-separated string to List<int>
+
+    func ConvertStringToListInt(s string) List<int> {
+        var result List<int> = List<int>{}
+        if s == nil || s == "" {
+            return result
+        }
+
+        var pos int = 0
+        var len int = Strings.Length(s)
+        for i = 0, len + 1, 1 {
+            if i == len || Sub(s, i, 1) == "," {
+                var part string = Sub(s, pos, i - pos)
+                StringToInt(part, out var value, out var isSuccess)
+                if isSuccess {
+                    Append(result, value)
+                }
+                pos = i + 1
+            }
+        }
+        return result
+    }
+
+    // Helper: Sort list int
+
+    func SortPetIdsByRank(originList List<int>, ranks List<int>) List<int> {
+        var result List<int> = List.Clone(originList) as List<int>
+        var clonedRanks List<int> = List.Clone(ranks) as List<int>
+
+        for i = 0, List.Length(clonedRanks) - 1, 1 {
+            for j = i + 1, List.Length(clonedRanks), 1 {
+                if clonedRanks[i] > clonedRanks[j] {
+                    var temp int = result[i]
+                    result[i] = result[j]
+                    result[j] = temp
+
+                    temp = clonedRanks[i]
+                    clonedRanks[i] = clonedRanks[j]
+                    clonedRanks[j] = temp
+                }
+            }
+        }
+
+        return result
+    }
+
+    // Mobs
+
+    func GetMobCount() int {
+        return MOB_COUNT
+    }
+
+    // func GetMobCountByRarity(rarity string) int {
+    //     var count int = 0
+    //     for mobId, mobRarity in _MobId2Rarity {
+    //         if mobRarity == rarity || rarity == RarityEnum.All {
+    //             count += 1
+    //         }
+    //     }
+    //     return count
+    // }
+
+    func GetMobId2Name() Map<int, string> {
+        return _MobId2Name
+    }
+
+    func GetMobName(mobId int) string {
+        return _MobId2Name[mobId]
+    }
+
+    func GetMobNameLocalization(mobId int) StringOrLocString {
+        return LocString{_MobId2Name[mobId], {}}
+    }
+
+    // func GetMobNameLocalizationColor(mobId int) StringOrLocString {
+    //     var mobNameColor StringOrLocString = GetMobNameLocalization(mobId)
+    //     var mobRarity RarityEnum = GetMobRarity(mobId) as RarityEnum
+
+    //     if mobRarity == RarityEnum.Common {
+    //         mobNameColor = LocString{___STRING_PLACEHOLDER_0___, {mobNameColor}}
+    //     } else if mobRarity == RarityEnum.Rare {
+    //         mobNameColor = LocString{___STRING_PLACEHOLDER_0___, {mobNameColor}}
+    //     } else if mobRarity == RarityEnum.Epic {
+    //         mobNameColor = LocString{___STRING_PLACEHOLDER_0___, {mobNameColor}}
+    //     } else if mobRarity == RarityEnum.Legendary {
+    //         mobNameColor = LocString{___STRING_PLACEHOLDER_0___, {mobNameColor}}
+    //     } else if mobRarity == RarityEnum.Mythic {
+    //         mobNameColor = LocString{___STRING_PLACEHOLDER_0___, {mobNameColor}}
+    //     } else {}
+
+    //     return mobNameColor
+    // }
+
+    func GetMobRarity(mobId int) string {
+        return _MobId2Rarity[mobId]
+    }
+
+    // func GetMobRarityLocalization(mobId int) StringOrLocString {
+    //     return RARITIES_NAME[_MobId2Rarity[mobId] as RarityEnum]
+    // }
+
+    func GetMobValue(mobId int) List<int> {
+        return _MobId2Value[mobId]
+    }
+
+    func GetMobPrice(mobId int) List<int> {
+        return _MobId2Price[mobId]
+    }
+
+    func GetMobWeight(mobId int) float {
+        return _MobId2Weight[mobId]
+    }
+
+    func GetMobRank(mobId int) int {
+        return _MobId2Rank[mobId]
+    }
+
+    func GetMobMeshKey(mobId int) string {
+        return _MobId2Name[mobId]
+    }
+
+    func GetMobThumbnailKey(mobId int) string {
+        return _MobId2ThumbnailKey[mobId]
+    }
+
+    // Sorted by rank
+
+    // func GetMobsByRarity(rarity string) List<int> {
+    //     var result List<int> = List<int>{}
+    //     var ranks List<int> = List<int>{}
+
+    //     for mobId, mobRarity in _MobId2Rarity {
+    //         if mobRarity == rarity || rarity == RarityEnum.All {
+    //             List.Append(result, mobId)
+    //             List.Append(ranks, GetMobRank(mobId))
+    //         }
+    //     }
+    //     return SortPetIdsByRank(result, ranks)
+    // }
+
+    // func GetMobValueWithMutation(mobId int, mutationId int) List<int> {
+    //     return BigNumberHandler.MultiplyListIntByFloat(GetMobValue(mobId), GetMutationMultiplier(mutationId))
+    // }
+
+    // Mutations
+
+    func GetMutationCount() int {
+        return MUTATION_COUNT
+    }
+
+    func GetMutationId2Name() Map<int, string> {
+        return _MutationId2Name
+    }
+
+    func GetMutationName(mutationId int) string {
+        return _MutationId2Name[mutationId]
+    }
+
+    // func GetMutationNameLocalization(mutationId int) StringOrLocString {
+    //     return MUTATIONS_NAME[mutationId as MutationEnum]
+    // }
+
+    // func GetMutationNameLocalizationColor(mutationId int) StringOrLocString {
+    //     // WARN: Add color for new mutation
+    //     var mutationNameColor StringOrLocString = GetMutationNameLocalization(mutationId)
+
+    //     if mutationId == MutationEnum.Golden {
+    //         mutationNameColor = LocString{___STRING_PLACEHOLDER_0___, {mutationNameColor}}
+    //     } else if mutationId == MutationEnum.Frozen {
+    //         mutationNameColor = LocString{___STRING_PLACEHOLDER_0___, {mutationNameColor}}
+    //     } else if mutationId == MutationEnum.Magma {
+    //         mutationNameColor = LocString{___STRING_PLACEHOLDER_0___, {mutationNameColor}}
+    //     } else if mutationId == MutationEnum.Clover {
+    //         mutationNameColor = LocString{___STRING_PLACEHOLDER_0___, {mutationNameColor}}
+    //     } else {}
+
+    //     return mutationNameColor
+    // }
+
+    func GetMutationMaterialKey(mutationId int) string {
+        return _MutationId2MaterialKey[mutationId]
+    }
+
+    func GetMutationEffectKey(mutationId int) string {
+        return _MutationId2EffectKey[mutationId]
+    }
+
+    func GetMutationMultiplier(mutationId int) float {
+        return _MutationId2Multiplier[mutationId]
+    }
+
+    func GetMutationWeight(mutationId int) float {
+        return _MutationId2Weight[mutationId]
+    }
+
+    func GetMutationIconKey(mutationId int) string {
+        return _MutationId2Name[mutationId]
+    }
+
+    // Rebirths
+
+    func GetRebirthCount() int {
+        return REBIRTH_COUNT
+    }
+
+    func GetRebirthBaseLockTime(rebirthId int) int {
+        return _RebirthId2BaseLockTime[rebirthId]
+    }
+
+    func GetRebirthStartingMoney(rebirthId int) List<int> {
+        return _RebirthId2StartingMoney[rebirthId]
+    }
+
+    func GetRebirthMoneyMultiplier(rebirthId int) float {
+        return _RebirthId2MoneyMultiplier[rebirthId]
+    }
+
+    func GetRebirthBaseLevel(rebirthId int) int {
+        return _RebirthId2BaseLevel[rebirthId]
+    }
+
+    func GetRebirthMobAmount(rebirthId int) int {
+        return _RebirthId2MobAmount[rebirthId]
+    }
+
+    func GetRebirthNextLevelMoney(rebirthId int) List<int> {
+        return _RebirthId2NextLevelMoney[rebirthId]
+    }
+
+    func GetRebirthNextLevelMob(rebirthId int) List<int> {
+        return _RebirthId2NextLevelMob[rebirthId]
+    }
+
+    func GetSpeedRiseItem() float {
+        return _SpeedRiseItem
+    }
+
+    func GetDurationRiseSpeed() int {
+        return _DurationRiseSpeed
+    }
+
+    func GetDurationSuperWeapon() int {
+        return _DurationSuperWeapon
+    }
+
+    func GetStealSpeed() float {
+        return _PlayerStealSpeed
+    }
+}

@@ -4,7 +4,166 @@
   },
   "_entityId": "6kC0jfLv",
   "enumCount": 0,
-  "enumDefines": {},
-  "enumNameMap": {}
+  "enumDefines": {
+    "CustomEnum42867366": {
+      "label": "MobConfigEnum",
+      "key": "CustomEnum42867366",
+      "type": "Int",
+      "info": [
+        {
+          "label": "ID",
+          "key": "E24717515",
+          "value": 0,
+          "type": "Int"
+        },
+        {
+          "label": "Name",
+          "key": "E55364071",
+          "value": 1,
+          "type": "Int"
+        },
+        {
+          "label": "Rarity",
+          "key": "E63673793",
+          "value": 2,
+          "type": "Int"
+        },
+        {
+          "label": "Value",
+          "key": "E93855112",
+          "value": 3,
+          "type": "Int"
+        },
+        {
+          "label": "Price",
+          "key": "E56032381",
+          "value": 4,
+          "type": "Int"
+        },
+        {
+          "label": "Weight",
+          "key": "E83192009",
+          "value": 5,
+          "type": "Int"
+        },
+        {
+          "label": "Rank",
+          "key": "E34544305",
+          "value": 6,
+          "type": "Int"
+        }
+      ],
+      "isCustom": true,
+      "isDirty": false
+    },
+    "CustomEnum16315835": {
+      "label": "MutationConfigEnum",
+      "key": "CustomEnum16315835",
+      "type": "Int",
+      "info": [
+        {
+          "label": "ID",
+          "key": "E56339622",
+          "value": 0,
+          "type": "Int"
+        },
+        {
+          "label": "Name",
+          "key": "E63400968",
+          "value": 1,
+          "type": "Int"
+        },
+        {
+          "label": "MaterialKey",
+          "key": "E69981947",
+          "value": 2,
+          "type": "Int"
+        },
+        {
+          "label": "EffectKey",
+          "key": "E23896665",
+          "value": 3,
+          "type": "Int"
+        },
+        {
+          "label": "Multiplier",
+          "key": "E34967216",
+          "value": 4,
+          "type": "Int"
+        },
+        {
+          "label": "Weight",
+          "key": "E63076297",
+          "value": 5,
+          "type": "Int"
+        }
+      ],
+      "isCustom": true,
+      "isDirty": false
+    },
+    "CustomEnum20369621": {
+      "label": "RebirthConfigEnum",
+      "key": "CustomEnum20369621",
+      "type": "Int",
+      "info": [
+        {
+          "label": "ID",
+          "key": "E25700274",
+          "value": 0,
+          "type": "Int"
+        },
+        {
+          "label": "BaseLockTime",
+          "key": "E66513785",
+          "value": 1,
+          "type": "Int"
+        },
+        {
+          "label": "StartingMoney",
+          "key": "E47128176",
+          "value": 2,
+          "type": "Int"
+        },
+        {
+          "label": "MoneyMultiplier",
+          "key": "E89294726",
+          "value": 3,
+          "type": "Int"
+        },
+        {
+          "label": "BaseLevel",
+          "key": "E29297697",
+          "value": 4,
+          "type": "Int"
+        },
+        {
+          "label": "MobAmount",
+          "key": "E29636815",
+          "value": 5,
+          "type": "Int"
+        },
+        {
+          "label": "NextLevelMoney",
+          "key": "E52150812",
+          "value": 6,
+          "type": "Int"
+        },
+        {
+          "label": "NextLevelMobList",
+          "key": "E38314632",
+          "value": 7,
+          "type": "Int"
+        }
+      ],
+      "isCustom": true,
+      "isDirty": false
+    }
+  },
+  "enumNameMap": {
+    "MobConfigEnum": "CustomEnum42867366",
+    "MutationConfigEnum": "CustomEnum16315835",
+    "RebirthConfigEnum": "CustomEnum20369621"
+  },
+  "children": []
 }
-//"{FE:{"v":"0.0.0","c":{"FF":4701},"s":100}
+//"{FE:{"v":"1.15.4008519","c":{"FF":5001},"s":100}

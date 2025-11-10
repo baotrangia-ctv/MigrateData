@@ -1,0 +1,258 @@
+import "Hud.fcc" as Hud
+import "List.fcc" as List
+import "Strings.fcc" as Strings
+import "Convert.fcc" as Convert
+import "Database.fcc" as Database
+import "StdLibrary.fcc" as StdLib
+import "EditorGenLib.fcc" as EditorLib
+import Res from "EditorGenLib.fcc"
+
+import "../Manager/GlobalConfig.fcg" as GlobalConfig
+
+graph HudDataControl {
+    SHEET_PLAYER_SAVE = "PlayerSave"
+    KEY_PLAYER_SAVE_BALANCE = "pBalance"
+    KEY_PLAYER_PET_COINS = "pPetCoins"
+    KEY_PLAYER_SAVE_PET_LIST_ID = "pMobListID"
+    KEY_PLAYER_SAVE_PET_MUTATION_LIST = "pMobMutationList"
+    KEY_PLAYER_SAVE_PET_BALANCE_LIST = "pMobBalanceList"
+    KEY_PLAYER_SAVE_LAST_LOG_TIME = "lastLogTime"
+    KEY_PLAYER_SAVE_REBIRTH_LEVEL = "pRebirthLevel"
+    SHEET_PETS_COLLECTION = "PetsCollection"
+    KEY_OWN_PETS = "OwnPets"
+    KEY_OWN_MUTATIONS = "OwnMutations"
+
+    MAP_CODES_LIVE Map<string, string> = Map<string, string>{
+        "SG": "#FREEFIRE532C973D597E17DAE80597EA6B8C2BF63758",
+        "US": "#FREEFIREC510D78844A5356D4427C6EFE2213E394182",
+        "IND": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
+    }
+    MAP_CODES_TEST Map<string, string> = Map<string, string>{
+        "SG": "#FREEFIREEEFF9C25F0A25CF0FFC3DBE6746DDB670578",
+        "US": "",
+        "IND": "",
+    }
+    UUID_PERMISSION_TO_DEBUG List<string> = List<string>{
+        "10257800578", // Zuto SG 1
+        "10518789100", // Zuto SG 2
+        "12188996637", // Zuto US
+        "12982621832", // Zuto IND
+        "11769583988", // Tom SG 1
+        "12042339684", // Tom SG 2
+        "12189272609", // Tom US
+        "12189272609", // Tom IND
+        "12476516502", // Duck
+        "9231569200", // Codex
+        "12299741510", // Trung
+    }
+    TEAM_UUID Map<string, UUID> = Map<string, UUID>{
+        "Zuto SG 1": "10257800578" as UUID,
+        "Zuto SG 2": "10518789100" as UUID,
+        "Zuto US": "12188996637" as UUID,
+        "Zuto IND": "12982621832" as UUID,
+        "Tom SG 1": "11769583988" as UUID,
+        "Tom SG 2": "12042339684" as UUID,
+        "Tom US": "12189272609" as UUID,
+        "Tom IND": "" as UUID,
+        "Tomo": "513440537" as UUID,
+        "Vy": "7780938922" as UUID,
+        "Codex": "9231569200" as UUID,
+        "Duck": "12476516502" as UUID,
+        "Cap": "310661707" as UUID,
+        "Chanh": "12884293168" as UUID,
+        "Hung": "1214288183" as UUID,
+        "Son": "12884319166" as UUID,
+        "Vuong": "12568781273" as UUID,
+    }
+
+    _SrcMapCode string
+    _DestMapCode string
+    _SrcUID UUID
+    _DestUID UUID
+
+    _CachedSrcMapCode string
+    _CachedDestMapCode string
+    _CachedSrcUID UUID
+
+    _PlayerPetIDs List<int>
+    _PlayerMutations List<int>
+
+    _PSMoney string
+    _PSPetCoins string
+    _PSRebirthLevel string
+    _PSPetIDs string
+    _PSPetMutations string
+    _PSPetBalances string
+    _PSLastLogTime string
+    _PCPets List<int>
+    _PCMutations List<List<int>>
+
+    _DataControlHUD entity<CustomUI>
+    _SrcMapInput entity<UIWidgetInputLabel>
+    _DestMapInput entity<UIWidgetInputLabel>
+    _SrcUIDInput entity<UIWidgetInputLabel>
+    _DestUIDInput entity<UIWidgetInputLabel>
+    _BasePetsWidget entity<UIWidget>
+
+    event OnAwake() {
+        if List.Contain(UUID_PERMISSION_TO_DEBUG, thisEntity<Player>.UserUID) {
+            ShowDataControlHUD()
+        }
+    }
+
+    func InitDataControlHUD() {
+        if _DataControlHUD != nil {
+            return
+        }
+
+        CreateCustomUI(out var DataControlHud, thisEntity<Player>, EResUI.MigrateData)
+        _DataControlHUD = DataControlHud
+
+        var formWidget entity<UIWidget> = GetChildByIndex(_DataControlHUD, 1) as entity<UIWidget>
+        var srcMapWidget entity<UIWidget> = GetChildByIndex(formWidget, 0) as entity<UIWidget>
+        var destMapWidget entity<UIWidget> = GetChildByIndex(formWidget, 1) as entity<UIWidget>
+        var srcUIDWidget entity<UIWidget> = GetChildByIndex(formWidget, 2) as entity<UIWidget>
+        var destUIDWidget entity<UIWidget> = GetChildByIndex(formWidget, 3) as entity<UIWidget>
+
+        _SrcMapInput = GetChildByIndex(srcMapWidget, 1) as entity<UIWidgetInputLabel>
+        _DestMapInput = GetChildByIndex(destMapWidget, 1) as entity<UIWidgetInputLabel>
+        _SrcUIDInput = GetChildByIndex(srcUIDWidget, 1) as entity<UIWidgetInputLabel>
+        _DestUIDInput = GetChildByIndex(destUIDWidget, 1) as entity<UIWidgetInputLabel>
+
+        _BasePetsWidget = GetChildByIndex(_DataControlHUD, 2) as entity<UIWidget>
+
+        HideDataControlHUD()
+    }
+
+    func ShowDataControlHUD() {
+        InitDataControlHUD()
+        _DataControlHUD<CustomUI>.IsVisible = true
+    }
+
+    func HideDataControlHUD() {
+        _DataControlHUD<CustomUI>.IsVisible = false
+    }
+
+    func UpdateSrcMapCode(server string) {
+        if server == "SG" {
+            _SrcMapCode = MAP_CODES_LIVE["SG"]
+        } else if server == "US"{
+            _SrcMapCode = MAP_CODES_LIVE["US"]
+        } else if server == "IND"{
+            _SrcMapCode = MAP_CODES_LIVE["IND"]
+        } else {}
+
+        _SrcMapInput<UIWidgetInputLabel>.ActiveText = _SrcMapCode
+        _DestMapInput<UIWidgetInputLabel>.ActiveText = _DestMapCode
+    }
+
+    func UpdateDestMapCode(server string) {
+        if server == "SG" {
+            _DestMapCode = MAP_CODES_TEST["SG"]
+        } else if server == "US"{
+            _DestMapCode = MAP_CODES_TEST["US"]
+        } else if server == "IND"{
+            _DestMapCode = MAP_CODES_TEST["IND"]
+        } else {}
+    }
+
+    func UpdateUIDs(userName string) {
+        _SrcUID = TEAM_UUID[userName]
+        _DestUID = TEAM_UUID[userName]
+
+        _SrcUIDInput<UIWidgetInputLabel>.ActiveText = _SrcUID
+        _DestUIDInput<UIWidgetInputLabel>.ActiveText = _DestUID
+    }
+
+    async func GetData() {
+        _SrcMapCode = _SrcMapInput<UIWidgetInputLabel>.ActiveText
+        _DestMapCode = _DestMapInput<UIWidgetInputLabel>.ActiveText
+        _SrcUID = _SrcUIDInput<UIWidgetInputLabel>.ActiveText as UUID
+        _DestUID = _DestUIDInput<UIWidgetInputLabel>.ActiveText as UUID
+
+        if _SrcMapCode == _CachedSrcMapCode && _DestMapCode == _CachedDestMapCode && _SrcUID == _CachedSrcUID {
+            return
+        }
+
+        _CachedSrcMapCode = _SrcMapCode
+        _CachedDestMapCode = _DestMapCode
+        _CachedSrcUID = _SrcUID
+
+        wait BatchReadDBSheetValue(
+            SHEET_PLAYER_SAVE,
+            List<UUID>{
+                _CachedSrcUID,
+                _CachedSrcUID,
+                _CachedSrcUID,
+                _CachedSrcUID,
+                _CachedSrcUID,
+                _CachedSrcUID,
+                _CachedSrcUID,
+            },
+            List<string>{
+                KEY_PLAYER_SAVE_BALANCE,
+                KEY_PLAYER_SAVE_REBIRTH_LEVEL,
+                KEY_PLAYER_SAVE_PET_LIST_ID,
+                KEY_PLAYER_SAVE_PET_MUTATION_LIST,
+                KEY_PLAYER_SAVE_PET_BALANCE_LIST,
+                KEY_PLAYER_SAVE_LAST_LOG_TIME,
+                KEY_PLAYER_PET_COINS,
+            },
+            out var results,
+            _CachedSrcMapCode,
+            out var statusCodes,
+        )
+        wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_PETS, out var ownPets, _CachedSrcMapCode, out var statusCode1)
+        wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_MUTATIONS, out var ownMutations, _CachedSrcMapCode, out var statusCode2)
+
+        UpdateBasePets()
+    }
+
+    func UpdateBasePets() {
+        _PlayerPetIDs = StringToListInt(_PSPetIDs)
+        _PlayerMutations = StringToListInt(_PSPetMutations)
+
+        for key, petId in _PlayerPetIDs {
+            var petWidget entity<UIWidget> = GetChildByIndex(_BasePetsWidget, key + 1) as entity<UIWidget>
+            var petIcon entity<UIWidgetImage> = GetChildByIndex(petWidget, 0) as entity<UIWidgetImage>
+            var mutationIcon entity<UIWidgetImage> = GetChildByIndex(petWidget, 1) as entity<UIWidgetImage>
+
+            petIcon<UIWidgetImage>.SpriteName = Res.Sprite[GlobalConfig.GetMobThumbnailKey(petId) as EResKeySprite]
+            mutationIcon<UIWidgetImage>.SpriteName = Res.Sprite[GlobalConfig.GetMutationIconKey(_PlayerMutations[key]) as EResKeySprite]
+        }
+    }
+
+    async func MigrateData() {
+        wait GetData()
+
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_BALANCE, _PSMoney, _CachedDestMapCode, out var r1)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_PET_COINS, _PSPetCoins, _CachedDestMapCode, out var r2)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_PET_LIST_ID, _PSPetIDs, _CachedDestMapCode, out var r3)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_PET_MUTATION_LIST, _PSPetMutations, _CachedDestMapCode, out var r4)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_PET_BALANCE_LIST, _PSPetBalances, _CachedDestMapCode, out var r5)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_LAST_LOG_TIME, _PSLastLogTime, _CachedDestMapCode, out var r6)
+        WriteToDataStore(SHEET_PLAYER_SAVE, _DestUID, KEY_PLAYER_SAVE_REBIRTH_LEVEL, _PSRebirthLevel, _CachedDestMapCode, out var r7)
+        WriteToDataStore(SHEET_PETS_COLLECTION, _DestUID, KEY_OWN_PETS, _PCPets, _CachedDestMapCode, out var r8)
+        WriteToDataStore(SHEET_PETS_COLLECTION, _DestUID, KEY_OWN_MUTATIONS, _PCMutations, _CachedDestMapCode, out var r9)
+    }
+
+    func StringToListInt(s string) List<int> {
+        var result List<int> = List<int>{}
+        if s == nil || s == "" {
+            return result
+        }
+        var pos int = 0
+        var len int = Strings.Length(s)
+        for i = 0, len + 1, 1 {
+            if i == len || Sub(s, i, 1) == "," {
+                var part string = Sub(s, pos, i - pos)
+                StringToInt(part, out var value, out var isSuccess)
+                if isSuccess {
+                    Append(result, value)
+                }
+                pos = i + 1
+            }
+        }
+        return result
+    }
+}

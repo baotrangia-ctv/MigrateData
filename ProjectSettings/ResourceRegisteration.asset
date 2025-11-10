@@ -23,6 +23,159 @@
               "scriptName": "MigrateButton"
             }
           ]
+        },
+        {
+          "refer": {
+            "fileId": "vxhme465xge-mhrukh9x-ehnrasdpgq",
+            "filePath": "Assets\\HUDs\\DataControl.ui",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "ui"
+          },
+          "scriptName": "DataControl",
+          "children": [
+            {
+              "id": "bvf1ZqzN",
+              "scriptName": "SrcMapCodeTextbox"
+            },
+            {
+              "id": "JKvUBhqM",
+              "scriptName": "SGServerButton"
+            },
+            {
+              "id": "LaKGUprQ",
+              "scriptName": "USServerButton"
+            },
+            {
+              "id": "m68jI78v",
+              "scriptName": "INDServerButton"
+            },
+            {
+              "id": "CRs8zMw8",
+              "scriptName": "DestMapCodeTextbox"
+            },
+            {
+              "id": "e0OUHJOB",
+              "scriptName": "SGServerTestButton"
+            },
+            {
+              "id": "anPHrsvS",
+              "scriptName": "USServerTestButton"
+            },
+            {
+              "id": "aPtdfEsj",
+              "scriptName": "INDServerTestButton"
+            },
+            {
+              "id": "zEpkhJrH",
+              "scriptName": "SrcUIDTextbox"
+            },
+            {
+              "id": "aTNT4MEn",
+              "scriptName": "DestUIDTextbox"
+            },
+            {
+              "id": "E37tcm5T",
+              "scriptName": "TomoButton"
+            },
+            {
+              "id": "SurrtRLX",
+              "scriptName": "ZutoSG1Button"
+            },
+            {
+              "id": "VmYZQGBw",
+              "scriptName": "ZutoUSButton"
+            },
+            {
+              "id": "eSthvvhF",
+              "scriptName": "ZutoINDButton"
+            },
+            {
+              "id": "AyveWaDI",
+              "scriptName": "TomSG1Button"
+            },
+            {
+              "id": "HoWI8Vc1",
+              "scriptName": "TomUSButton"
+            },
+            {
+              "id": "rQyP7AGj",
+              "scriptName": "TomINDButton"
+            },
+            {
+              "id": "MHlDiQ9Y",
+              "scriptName": "VyButton"
+            },
+            {
+              "id": "BR5xUKEa",
+              "scriptName": "CodexButton"
+            },
+            {
+              "id": "MjjW2LOe",
+              "scriptName": "ChanhButton"
+            },
+            {
+              "id": "wBLiF9uf",
+              "scriptName": "HungButton"
+            },
+            {
+              "id": "OPYDTa5z",
+              "scriptName": "SonButton"
+            },
+            {
+              "id": "s24mRpix",
+              "scriptName": "BasePets"
+            },
+            {
+              "id": "JehJppR5",
+              "scriptName": "BasePetsButton"
+            },
+            {
+              "id": "BQHLDTXW",
+              "scriptName": "BasePetMutationsButton"
+            },
+            {
+              "id": "KmFeXexI",
+              "scriptName": "RebirthButton"
+            },
+            {
+              "id": "fvlkgUuZ",
+              "scriptName": "MoneyButton"
+            },
+            {
+              "id": "hYXlwOIp",
+              "scriptName": "CollectionButton"
+            },
+            {
+              "id": "VChxiVOL",
+              "scriptName": "GetDataButton"
+            },
+            {
+              "id": "Fa1XDzg6",
+              "scriptName": "MigrateDataButton"
+            },
+            {
+              "id": "iUICRVAy",
+              "scriptName": "ZutoSG2Button"
+            },
+            {
+              "id": "oYCcZ1o9",
+              "scriptName": "TomSG2Button"
+            },
+            {
+              "id": "WpPwJ7wN",
+              "scriptName": "DuckButton"
+            },
+            {
+              "id": "MSk6LwJH",
+              "scriptName": "VuongButton"
+            },
+            {
+              "id": "MZR6tngp",
+              "scriptName": "CapButton"
+            }
+          ]
         }
       ]
     },
@@ -44,7 +197,740 @@
     },
     "texture": {
       "id": "texture",
-      "children": []
+      "children": [
+        {
+          "refer": {
+            "fileId": "z68uw5uyp4-mggb0i95-t7410a0isc",
+            "filePath": "Assets\\Sprites\\Pets\\ALIGATOR.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "ALIGATOR",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "vu7mzez9kir-mggb0dhn-p0azt1pc8mb",
+            "filePath": "Assets\\Sprites\\Pets\\BELUGA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "BELUGA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "927mdzvzpuh-mh4kvmmf-gc8cgd0zibi",
+            "filePath": "Assets\\Sprites\\Pets\\BISON.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "BISON",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "crsqp70eev-mggb0dnx-e0k0w5xl5xu",
+            "filePath": "Assets\\Sprites\\Pets\\BROWNBEAR.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "BROWNBEAR",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "fp3zmu5xj7w-mggb0i2l-rko55snmf",
+            "filePath": "Assets\\Sprites\\Pets\\CAMEL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CAMEL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "x7d4qe2n9ie-mggb0hzg-istyy5y56le",
+            "filePath": "Assets\\Sprites\\Pets\\CAPYBARA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CAPYBARA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "wpqk631142-mggb0hw5-odz2w627bl",
+            "filePath": "Assets\\Sprites\\Pets\\CAT.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CAT",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "k7k75xxcivi-mggb0hsz-5v6fetdv3tr",
+            "filePath": "Assets\\Sprites\\Pets\\CHEETAH.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CHEETAH",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "xf94qan4bpa-mggb0hpl-vdqyrmsossg",
+            "filePath": "Assets\\Sprites\\Pets\\CHICK.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CHICK",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "zzygo8lg75-mggb0g0l-hf6caxbujya",
+            "filePath": "Assets\\Sprites\\Pets\\CLOWNFISH.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CLOWNFISH",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "ibcrnyfy7c-mggb0hm8-pu0byvonj5c",
+            "filePath": "Assets\\Sprites\\Pets\\CRAB.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "CRAB",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "eyu2fnurisl-mggb0hax-d6zuegd3sv",
+            "filePath": "Assets\\Sprites\\Pets\\DOG.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "DOG",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "unq31dcyq2f-mggb0h7j-7sqvzlz5ua",
+            "filePath": "Assets\\Sprites\\Pets\\DOLPHIN.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "DOLPHIN",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "fylzkverh7o-mggb0h4g-ba3y76sndd",
+            "filePath": "Assets\\Sprites\\Pets\\EAGLE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "EAGLE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "b48jygs8tke-mggb0h17-yhdf0nczmv",
+            "filePath": "Assets\\Sprites\\Pets\\ELEPHANT.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "ELEPHANT",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "xhyj1tkn18-mggb0gxq-7jxxxrrdeck",
+            "filePath": "Assets\\Sprites\\Pets\\FLAMINGO.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "FLAMINGO",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "iiweby4g5d-mh92zeju-gzsfaymou1p",
+            "filePath": "Assets\\Sprites\\Pets\\GAZELLE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "GAZELLE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "60aavd32vqr-mggb0guf-ad65eb611a",
+            "filePath": "Assets\\Sprites\\Pets\\GIRAFFE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "GIRAFFE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "heeyxvusfdw-mggb0gr8-aune6rw8eol",
+            "filePath": "Assets\\Sprites\\Pets\\GOAT.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "GOAT",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "2ajniqfdbmy-mggb0go0-wx6mzijvkq",
+            "filePath": "Assets\\Sprites\\Pets\\GOOSE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "GOOSE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "9cy6my0ir4f-mggb0d4k-ub8n3z3y9",
+            "filePath": "Assets\\Sprites\\Pets\\GORILLA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "GORILLA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "vruhzuydem-mggb0gkz-hy7ci20um2w",
+            "filePath": "Assets\\Sprites\\Pets\\HAMSTER.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "HAMSTER",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "1acgc8jgii4-mggb0ghw-vdw7drowm6h",
+            "filePath": "Assets\\Sprites\\Pets\\HIPPO.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "HIPPO",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "746y68oztc3-mggb0dv6-9kw9xm95dns",
+            "filePath": "Assets\\Sprites\\Pets\\HORNBILL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "HORNBILL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "8np9tor8ak7-mggb0gek-ss7w1ay0tbq",
+            "filePath": "Assets\\Sprites\\Pets\\HORSE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "HORSE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "ad91i1v2385-mh92zex6-pr945opazuf",
+            "filePath": "Assets\\Sprites\\Pets\\HUSKY.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "HUSKY",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "l3zn1x8e06-mggb0gbe-488m9zd8qec",
+            "filePath": "Assets\\Sprites\\Pets\\JELLYFISH.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "JELLYFISH",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "a6zfq6w14qa-mggb0g71-dvbb66bgsi4",
+            "filePath": "Assets\\Sprites\\Pets\\LION.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "LION",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "tyhnwkt3chq-mhbsv9ee-dz4v0vlabc4",
+            "filePath": "Assets\\Sprites\\Pets\\MANATEE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "MANATEE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "llhcolhim3-mggb0g3q-kx9r2nj72n",
+            "filePath": "Assets\\Sprites\\Pets\\MONKEY.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "MONKEY",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "awi4tygkool-mggb0fx9-9bc739j4nyv",
+            "filePath": "Assets\\Sprites\\Pets\\MOOSE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "MOOSE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "1ndxyn7ljdc-mggb0ds2-rl4gjyuxtl",
+            "filePath": "Assets\\Sprites\\Pets\\NARWHAL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "NARWHAL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "bigkkmpvn5b-mggb0ftz-o178x21y22q",
+            "filePath": "Assets\\Sprites\\Pets\\OCTOPUS.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "OCTOPUS",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "yhb9338h3qa-mggb0fqs-7rhuah4tlce",
+            "filePath": "Assets\\Sprites\\Pets\\ORCA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "ORCA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "rk88g0rysa-mggb0del-45nfv3y15be",
+            "filePath": "Assets\\Sprites\\Pets\\OSTRICH.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "OSTRICH",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "015hg10818j1-mggb0fnm-kfhx246ktkj",
+            "filePath": "Assets\\Sprites\\Pets\\OWL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "OWL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "40xapfmsn4p-mggb0fjx-kgc08yypygd",
+            "filePath": "Assets\\Sprites\\Pets\\PANDA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "PANDA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "dlpyaggw4et-mggb0fgi-ej1iswav6kw",
+            "filePath": "Assets\\Sprites\\Pets\\PIG.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "PIG",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "6euz1q9ndla-mggb0f6h-fi84jwcfrx4",
+            "filePath": "Assets\\Sprites\\Pets\\POLARBEAR.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "POLARBEAR",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "gtpipo3qvc-mggb0f3h-hk9lqlwp7re",
+            "filePath": "Assets\\Sprites\\Pets\\RABBIT.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "RABBIT",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "7a4islqpsmg-mggb0eze-gbznekfdw",
+            "filePath": "Assets\\Sprites\\Pets\\RACOON.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "RACOON",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "3peplzr50vl-mggb0ew7-udimrm238e",
+            "filePath": "Assets\\Sprites\\Pets\\RHINO.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "RHINO",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "9yihlikpa9g-mggb0et8-eo6pxlq6m4v",
+            "filePath": "Assets\\Sprites\\Pets\\ROOSTER.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "ROOSTER",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "o1wai7vdcv-mggb0eq5-ifa5e5loku",
+            "filePath": "Assets\\Sprites\\Pets\\SEALION.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SEALION",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "v6vi7y6my5c-mggb0en3-87d2dpmcklm",
+            "filePath": "Assets\\Sprites\\Pets\\SHEEP.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SHEEP",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "9b12d3qyxh8-mh92zf0j-mrkkf2efw7n",
+            "filePath": "Assets\\Sprites\\Pets\\SHOEBILL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SHOEBILL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "ytkngrrcy3-mh92zf7a-l6pwuf8bvy",
+            "filePath": "Assets\\Sprites\\Pets\\SHRIMP.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SHRIMP",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "rdbyw5x2woq-mhbsxp7p-i4agr52n6o",
+            "filePath": "Assets\\Sprites\\Pets\\SMALLWHALE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SMALLWHALE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "o73cf7qrd9g-mh92zf3w-848arie3xjt",
+            "filePath": "Assets\\Sprites\\Pets\\SNAKE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SNAKE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "i6q7oz7cmec-mggb0ek2-dlu7cxh9s3m",
+            "filePath": "Assets\\Sprites\\Pets\\SNOWOWL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SNOWOWL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "fl0bskxkpvv-mggb0eh4-lb2m9xuuxuf",
+            "filePath": "Assets\\Sprites\\Pets\\SQUIRREL.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SQUIRREL",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "30fs8c8y3kt-mggb0ee3-a53g7spf65c",
+            "filePath": "Assets\\Sprites\\Pets\\TIGER.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "TIGER",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "bpsesy0jovs-mggb0eax-fa0qfdzj3wc",
+            "filePath": "Assets\\Sprites\\Pets\\TURTLE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "TURTLE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "xch9pwj779m-mggb0e7t-03ylbxpn1pvl",
+            "filePath": "Assets\\Sprites\\Pets\\WALRUS.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "WALRUS",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "mpds1aqpvqj-mhbsxpbl-hjif92xcsp9",
+            "filePath": "Assets\\Sprites\\Pets\\WHALE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "WHALE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "18g63zgudrz-mh4kvmq4-tcic58og6bh",
+            "filePath": "Assets\\Sprites\\Pets\\WOLF.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "WOLF",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "vnt9g7pgocs-mh4kvmiv-o1z6fxyy6gk",
+            "filePath": "Assets\\Sprites\\Pets\\ZEBRA.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "ZEBRA",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "j70yfuoo4ag-mhag195h-9nbtdbi1z58",
+            "filePath": "Assets\\Sprites\\Mutations\\Clover.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "Clover",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "j2ezcaj1rb-mh1q9kh5-82xou4gb5ir",
+            "filePath": "Assets\\Sprites\\Mutations\\Frozen.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "Frozen",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "97twy58xbkn-mh1q9k5d-bqgbdci2kb9",
+            "filePath": "Assets\\Sprites\\Mutations\\Golden.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "Golden",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "1mvdj32e9b3-mh1q9kdv-00422y7yqg6vw",
+            "filePath": "Assets\\Sprites\\Mutations\\Magma.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "Magma",
+          "children": []
+        }
+      ]
     },
     "effecttype": {
       "id": "effecttype",
@@ -80,7 +966,56 @@
     },
     "csv": {
       "id": "csv",
-      "children": []
+      "children": [
+        {
+          "refer": {
+            "fileId": "5hmw96mylgp-memjphnv-dc9snry10a5",
+            "filePath": "Assets\\CSV\\mob.csv",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "csv"
+          },
+          "scriptName": "Mob",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "gqk3ut0hwqi-mhemht1w-r9a4aaj6ccd",
+            "filePath": "Assets\\CSV\\PlayerData.csv",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "csv"
+          },
+          "scriptName": "PlayerDataCSV",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "al3cmn4bsz4-mfc1z3v9-wln59x7yl1p",
+            "filePath": "Assets\\CSV\\mutation.csv",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "csv"
+          },
+          "scriptName": "Mutation",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "h845q5ruz5j-mfmeihu0-v506iofxmxn",
+            "filePath": "Assets\\CSV\\rebirth.csv",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "csv"
+          },
+          "scriptName": "Rebirth",
+          "children": []
+        }
+      ]
     },
     "internalhudtype": {
       "id": "internalhudtype",
@@ -117,8 +1052,12 @@
     "pfm": {
       "id": "pfm",
       "children": []
+    },
+    "skilltype": {
+      "id": "skilltype",
+      "children": []
     }
   },
   "children": []
 }
-//"{FE:{"v":"1.14.3883376","c":{"FF":5001},"s":100}
+//"{FE:{"v":"1.15.4008519","c":{"FF":5001},"s":100}

@@ -1,0 +1,7 @@
+ID,Name,MaterialKey,EffectKey,Multiplier,Weight
+int,string,string,string,string,float
+1,Normal,None,None,1,1350
+2,Golden,GoldenMat,goldenEffect,1.33,100
+3,Frozen,IceMat,frozenEffect,1.66,40
+4,Magma,MagmaMat,magmaEffect,2,10
+5,Clover,CloverMat,cloverEffect,2.13,7
