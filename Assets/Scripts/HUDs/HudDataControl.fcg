@@ -87,7 +87,7 @@ graph HudDataControl {
     _PSPetBalances string
     _PSLastLogTime string
     _PCPets List<int>
-    _PCMutations List<List<int>>
+    _PCMutations List<int>
 
     _DataControlHUD entity<CustomUI>
     _SrcMapInput entity<UIWidgetInputLabel>
@@ -214,10 +214,10 @@ graph HudDataControl {
         _PSPetCoins = results[6] as string
 
         wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_PETS, out var ownPets, _CachedSrcMapCode, out var statusCode1)
-        _PCPets = StringToListInt(ownPets)
+        _PCPets = ownPets as List<int>
 
         wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_MUTATIONS, out var ownMutations, _CachedSrcMapCode, out var statusCode2)
-        _PCMutations = ConvertMutationsToBinary(StringToListInt(ownMutations))
+        _PCMutations = ownMutations as List<int>
 
         UpdateBasePets()
     }
