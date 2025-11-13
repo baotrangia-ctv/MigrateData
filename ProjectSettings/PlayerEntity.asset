@@ -67,8 +67,8 @@
   "ecaScript": null,
   "ecaScripts": [
     {
-      "fileId": "nlu72p9f3ad-mgnuts1k-jfpievao4a",
-      "filePath": "Assets\\Script (1).fcg",
+      "fileId": "yqa6ueav-mhsd6xu6-bscoi9jdvwl",
+      "filePath": "Assets\\Scripts\\HUDs\\HudDataControl.fcg",
       "_tag": {
         "type": "GFileRefer"
       },
@@ -306,4 +306,4 @@
   "modOpen": true,
   "showSwitch": false
 }
-//"{FE:{"v":"1.14.3883376","c":{"FF":5001},"s":100}
+//"{FE:{"v":"1.15.4008519","c":{"FF":5001},"s":100}

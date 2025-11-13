@@ -1,7 +1,7 @@
 import "Hud.fcc" as Hud
 import "List.fcc" as List
-import "Strings.fcc" as Strings
 import "Convert.fcc" as Convert
+import "Strings.fcc" as Strings
 import "Database.fcc" as Database
 import "StdLibrary.fcc" as StdLib
 import "EditorGenLib.fcc" as EditorLib
@@ -28,7 +28,7 @@ graph HudDataControl {
         "IND": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
     }
     MAP_CODES_TEST Map<string, string> = Map<string, string>{
-        "SG": "#FREEFIREEEFF9C25F0A25CF0FFC3DBE6746DDB670578",
+        "SG": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
         "US": "",
         "IND": "",
     }
@@ -44,25 +44,27 @@ graph HudDataControl {
         "12476516502", // Duck
         "9231569200", // Codex
         "12299741510", // Trung
+
+        "10001", // Editor
     }
-    TEAM_UUID Map<string, UUID> = Map<string, UUID>{
-        "Zuto SG 1": "10257800578" as UUID,
-        "Zuto SG 2": "10518789100" as UUID,
-        "Zuto US": "12188996637" as UUID,
-        "Zuto IND": "12982621832" as UUID,
-        "Tom SG 1": "11769583988" as UUID,
-        "Tom SG 2": "12042339684" as UUID,
-        "Tom US": "12189272609" as UUID,
-        "Tom IND": "" as UUID,
-        "Tomo": "513440537" as UUID,
-        "Vy": "7780938922" as UUID,
-        "Codex": "9231569200" as UUID,
-        "Duck": "12476516502" as UUID,
-        "Cap": "310661707" as UUID,
-        "Chanh": "12884293168" as UUID,
-        "Hung": "1214288183" as UUID,
-        "Son": "12884319166" as UUID,
-        "Vuong": "12568781273" as UUID,
+    TEAM_UUID Map<string, string> = Map<string, string>{
+        "Zuto SG 1": "10257800578",
+        "Zuto SG 2": "10518789100",
+        "Zuto US": "12188996637",
+        "Zuto IND": "12982621832",
+        "Tom SG 1": "11769583988",
+        "Tom SG 2": "12042339684",
+        "Tom US": "12189272609",
+        "Tom IND": "",
+        "Tomo": "513440537",
+        "Vy": "7780938922",
+        "Codex": "9231569200",
+        "Duck": "12476516502",
+        "Cap": "310661707",
+        "Chanh": "12884293168",
+        "Hung": "1214288183",
+        "Son": "12884319166",
+        "Vuong": "12568781273",
     }
 
     _SrcMapCode string
@@ -105,7 +107,7 @@ graph HudDataControl {
             return
         }
 
-        CreateCustomUI(out var DataControlHud, thisEntity<Player>, EResUI.MigrateData)
+        CreateCustomUI(out var DataControlHud, thisEntity<Player>, EResUI.DataControl)
         _DataControlHUD = DataControlHud
 
         var formWidget entity<UIWidget> = GetChildByIndex(_DataControlHUD, 1) as entity<UIWidget>
@@ -143,7 +145,6 @@ graph HudDataControl {
         } else {}
 
         _SrcMapInput<UIWidgetInputLabel>.ActiveText = _SrcMapCode
-        _DestMapInput<UIWidgetInputLabel>.ActiveText = _DestMapCode
     }
 
     func UpdateDestMapCode(server string) {
@@ -154,11 +155,13 @@ graph HudDataControl {
         } else if server == "IND"{
             _DestMapCode = MAP_CODES_TEST["IND"]
         } else {}
+
+        _DestMapInput<UIWidgetInputLabel>.ActiveText = _DestMapCode
     }
 
     func UpdateUIDs(userName string) {
-        _SrcUID = TEAM_UUID[userName]
-        _DestUID = TEAM_UUID[userName]
+        _SrcUID = TEAM_UUID[userName] as UUID
+        _DestUID = TEAM_UUID[userName] as UUID
 
         _SrcUIDInput<UIWidgetInputLabel>.ActiveText = _SrcUID
         _DestUIDInput<UIWidgetInputLabel>.ActiveText = _DestUID
@@ -202,8 +205,19 @@ graph HudDataControl {
             _CachedSrcMapCode,
             out var statusCodes,
         )
+        _PSMoney = results[0] as string
+        _PSRebirthLevel = results[1] as string
+        _PSPetIDs = results[2] as string
+        _PSPetMutations = results[3] as string
+        _PSPetBalances = results[4] as string
+        _PSLastLogTime = results[5] as string
+        _PSPetCoins = results[6] as string
+
         wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_PETS, out var ownPets, _CachedSrcMapCode, out var statusCode1)
+        _PCPets = StringToListInt(ownPets)
+
         wait ReadFromDataStore(SHEET_PETS_COLLECTION, _CachedSrcUID, KEY_OWN_MUTATIONS, out var ownMutations, _CachedSrcMapCode, out var statusCode2)
+        _PCMutations = ConvertMutationsToBinary(StringToListInt(ownMutations))
 
         UpdateBasePets()
     }
@@ -253,6 +267,34 @@ graph HudDataControl {
                 pos = i + 1
             }
         }
+        return result
+    }
+
+    func ConvertMutationsToBinary(mutations List<int>) List<List<int>> {
+        var ownMutations List<List<int>> = List<List<int>>{}
+
+        for key, mutation in mutations {
+            var newOwnMutations List<int> = ConvertIntToBinary(mutation)
+            List.Reverse(newOwnMutations)
+
+            while List.Length(newOwnMutations) < GlobalConfig.GetMutationCount() - 1 {
+                List.Append(newOwnMutations, 0)
+            }
+
+            List.Append(ownMutations, newOwnMutations)
+        }
+
+        return ownMutations
+    }
+
+    func ConvertIntToBinary(num int) List<int> {
+        var result List<int> = List<int>{}
+        while num > 0 {
+            var chunk int = num % 2
+            Append(result, chunk)
+            num = num / 2
+        }
+        List.Reverse(result)
         return result
     }
 }
