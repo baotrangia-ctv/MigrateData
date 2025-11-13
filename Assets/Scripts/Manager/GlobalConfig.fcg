@@ -7,7 +7,7 @@ import "StdLibrary.fcc" as StdLib
 import "EditorGenLib.fcc" as EditorLib
 
 static graph GlobalConfig {
-    MOB_COUNT int = 56
+    MOB_COUNT int = 61
     MUTATION_COUNT int = 5
     REBIRTH_COUNT int = 13
     INDEX_COLUMN int = 1

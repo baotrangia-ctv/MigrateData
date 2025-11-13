@@ -929,6 +929,78 @@
           },
           "scriptName": "Magma",
           "children": []
+        },
+        {
+          "refer": {
+            "fileId": "ejwq7rili0m-mhucubmk-mwjl2vlr0fj",
+            "filePath": "Assets\\Sprites\\Pets\\LOBSTER.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "LOBSTER",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "qlexqes74c-mhucub3g-4abuv17yuoh",
+            "filePath": "Assets\\Sprites\\Pets\\SWAN.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "SWAN",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "azr0np46z9t-mhucub7t-0rm5kdaafjba",
+            "filePath": "Assets\\Sprites\\Pets\\TURKEY.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "TURKEY",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "76wyiqklooi-mhud7b43-nr4sieay6z",
+            "filePath": "Assets\\Sprites\\Pets\\VULTURE.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "VULTURE",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "oxazkt4r1ti-mhucubbs-76m3tg14nhp",
+            "filePath": "Assets\\Sprites\\Pets\\PLATYPUS.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "PLATYPUS",
+          "children": []
+        },
+        {
+          "refer": {
+            "fileId": "30rcq3tjjr7-mhucubg6-qbzcj7g3vij",
+            "filePath": "Assets\\Sprites\\Pets\\JAGUAR.png",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "texture"
+          },
+          "scriptName": "JAGUAR",
+          "children": []
         }
       ]
     },
