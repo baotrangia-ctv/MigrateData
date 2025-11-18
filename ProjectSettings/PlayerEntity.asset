@@ -73,6 +73,14 @@
         "type": "GFileRefer"
       },
       "fileType": "ugcscript"
+    },
+    {
+      "fileId": "vwb9s6egg7-mi435rdk-vhahueev2y",
+      "filePath": "Assets\\Scripts\\HUDs\\HudFlagsManager.fcg",
+      "_tag": {
+        "type": "GFileRefer"
+      },
+      "fileType": "ugcscript"
     }
   ],
   "avatarInfo": null,

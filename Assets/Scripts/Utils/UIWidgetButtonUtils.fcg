@@ -4,6 +4,6 @@ import "EditorGenLib.fcc" as EditorLib
 
 graph UIWidgetButtonUtils {
     event OnTapped(player entity<Player>) {
-        DispatchEventWithPlatform(OnTapButton, thisEntity<UIWidget>.ParentUI, PlatformType.Local, List<object>{player, thisEntity})
+        DispatchEventToEntity(OnTapButton, thisEntity<UIWidget>.ParentUI, PlatformType.Local, List<object>{player, thisEntity})
     }
 }

@@ -9,7 +9,7 @@ import Res from "EditorGenLib.fcc"
 
 import "../Manager/GlobalConfig.fcg" as GlobalConfig
 
-graph HudDataControl {
+graph HudPetsManager {
     SHEET_PLAYER_SAVE = "PlayerSave"
     KEY_PLAYER_SAVE_BALANCE = "pBalance"
     KEY_PLAYER_PET_COINS = "pPetCoins"
@@ -33,6 +33,7 @@ graph HudDataControl {
         "IND": "",
     }
     UUID_PERMISSION_TO_DEBUG List<string> = List<string>{
+        "513440537", // Tomo
         "10257800578", // Zuto SG 1
         "10518789100", // Zuto SG 2
         "12188996637", // Zuto US
@@ -89,7 +90,7 @@ graph HudDataControl {
     _PCPets List<int>
     _PCMutations List<int>
 
-    _DataControlHUD entity<CustomUI>
+    _PetsManagerHUD entity<CustomUI>
     _SrcMapInput entity<UIWidgetInputLabel>
     _DestMapInput entity<UIWidgetInputLabel>
     _SrcUIDInput entity<UIWidgetInputLabel>
@@ -98,19 +99,19 @@ graph HudDataControl {
 
     event OnAwake() {
         if List.Contain(UUID_PERMISSION_TO_DEBUG, thisEntity<Player>.UserUID) {
-            ShowDataControlHUD()
+            ShowPetsManagerHUD()
         }
     }
 
-    func InitDataControlHUD() {
-        if _DataControlHUD != nil {
+    func InitPetsManagerHUD() {
+        if _PetsManagerHUD != nil {
             return
         }
 
-        CreateCustomUI(out var DataControlHud, thisEntity<Player>, EResUI.DataControl)
-        _DataControlHUD = DataControlHud
+        CreateCustomUI(out var PetsManagerHud, thisEntity<Player>, EResUI.PetsManager)
+        _PetsManagerHUD = PetsManagerHud
 
-        var formWidget entity<UIWidget> = GetChildByIndex(_DataControlHUD, 1) as entity<UIWidget>
+        var formWidget entity<UIWidget> = GetChildByIndex(_PetsManagerHUD, 1) as entity<UIWidget>
         var srcMapWidget entity<UIWidget> = GetChildByIndex(formWidget, 0) as entity<UIWidget>
         var destMapWidget entity<UIWidget> = GetChildByIndex(formWidget, 1) as entity<UIWidget>
         var srcUIDWidget entity<UIWidget> = GetChildByIndex(formWidget, 2) as entity<UIWidget>
@@ -121,18 +122,18 @@ graph HudDataControl {
         _SrcUIDInput = GetChildByIndex(srcUIDWidget, 1) as entity<UIWidgetInputLabel>
         _DestUIDInput = GetChildByIndex(destUIDWidget, 1) as entity<UIWidgetInputLabel>
 
-        _BasePetsWidget = GetChildByIndex(_DataControlHUD, 2) as entity<UIWidget>
+        _BasePetsWidget = GetChildByIndex(_PetsManagerHUD, 2) as entity<UIWidget>
 
-        HideDataControlHUD()
+        HidePetsManagerHUD()
     }
 
-    func ShowDataControlHUD() {
-        InitDataControlHUD()
-        _DataControlHUD<CustomUI>.IsVisible = true
+    func ShowPetsManagerHUD() {
+        InitPetsManagerHUD()
+        _PetsManagerHUD<CustomUI>.IsVisible = true
     }
 
-    func HideDataControlHUD() {
-        _DataControlHUD<CustomUI>.IsVisible = false
+    func HidePetsManagerHUD() {
+        _PetsManagerHUD<CustomUI>.IsVisible = false
     }
 
     func UpdateSrcMapCode(server string) {

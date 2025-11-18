@@ -9,23 +9,6 @@
       "children": [
         {
           "refer": {
-            "fileId": "hljg90pr17v-mgm8pi04-8et91rkz3d",
-            "filePath": "Assets\\HUDs\\MigrateData.ui",
-            "_tag": {
-              "type": "GFileRefer"
-            },
-            "fileType": "ui"
-          },
-          "scriptName": "MigrateData",
-          "children": [
-            {
-              "id": "m56fOghk",
-              "scriptName": "MigrateButton"
-            }
-          ]
-        },
-        {
-          "refer": {
             "fileId": "vxhme465xge-mhrukh9x-ehnrasdpgq",
             "filePath": "Assets\\HUDs\\DataControl.ui",
             "_tag": {
@@ -33,7 +16,7 @@
             },
             "fileType": "ui"
           },
-          "scriptName": "DataControl",
+          "scriptName": "PetsManager",
           "children": [
             {
               "id": "bvf1ZqzN",
@@ -174,6 +157,39 @@
             {
               "id": "MZR6tngp",
               "scriptName": "CapButton"
+            },
+            {
+              "id": "P6c1eRuf",
+              "scriptName": "SwitchFlagsManagerButton"
+            }
+          ]
+        },
+        {
+          "refer": {
+            "fileId": "re6250x0z5-mi42n3ug-o5ieisfv14o",
+            "filePath": "Assets\\HUDs\\FlagsManager.ui",
+            "_tag": {
+              "type": "GFileRefer"
+            },
+            "fileType": "ui"
+          },
+          "scriptName": "FlagsManager",
+          "children": [
+            {
+              "id": "uJWKYc6a",
+              "scriptName": "SwitchPetsManagerButton"
+            },
+            {
+              "id": "oOS9Feae",
+              "scriptName": "UpdateFlagsStatusesButton"
+            },
+            {
+              "id": "jcXfOvcD",
+              "scriptName": "FlagLabels"
+            },
+            {
+              "id": "RJeBId5D",
+              "scriptName": "FlagButtonsLayout"
             }
           ]
         }

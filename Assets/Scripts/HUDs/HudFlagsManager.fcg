@@ -1,0 +1,72 @@
+import "Hud.fcc" as Hud
+import "List.fcc" as List
+import "StdLibrary.fcc" as StdLib
+import "EditorGenLib.fcc" as EditorLib
+import Res from "EditorGenLib.fcc"
+
+graph HudFlagsManager {
+    MAP_CODES_LIVE Map<string, string> = Map<string, string>{
+        "SG": "#FREEFIRE532C973D597E17DAE80597EA6B8C2BF63758",
+        "US": "#FREEFIREC510D78844A5356D4427C6EFE2213E394182",
+        "IND": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
+    }
+    MAP_CODES_TEST Map<string, string> = Map<string, string>{
+        "SG": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
+        "US": "",
+        "IND": "",
+    }
+    UUID_PERMISSION_TO_DEBUG List<string> = List<string>{
+        "513440537", // Tomo
+        "10257800578", // Zuto SG 1
+        "10518789100", // Zuto SG 2
+        "12188996637", // Zuto US
+        "12982621832", // Zuto IND
+        "11769583988", // Tom SG 1
+        "12042339684", // Tom SG 2
+        "12189272609", // Tom US
+        "12189272609", // Tom IND
+        "12476516502", // Duck
+        "9231569200", // Codex
+        "12299741510", // Trung
+
+        "10001", // Editor
+    }
+    FLAG_STATUSES List<string> = List<string>{
+        "FLAG_REARRANGE_PETS",
+        "FLAG_DECORATION",
+        "FLAG_DATA_TRACKING",
+    }
+
+    _FlagsManagerHUD entity<CustomUI>
+    _FlagLabelsLayout entity<UIWidgetLayout>
+    _FlagButtonsLayout entity<UIWidgetLayout>
+
+    func InitFlagsManagerHUD() {
+        if _FlagsManagerHUD != nil {
+            return
+        }
+
+        CreateCustomUI(out var FlagsManagerHud, thisEntity<Player>, EResUI.FlagsManager)
+        _FlagsManagerHUD = FlagsManagerHud
+
+        _FlagLabelsLayout = GetHUDWidget(EResKeyFlagsManager.FlagLabels) as entity<UIWidgetLayout>
+        _FlagButtonsLayout = GetHUDWidget(EResKeyFlagsManager.FlagButtonsLayout) as entity<UIWidgetLayout>
+    }
+
+    func ShowFlagsManagerHUD() {
+        if !List.Contain(UUID_PERMISSION_TO_DEBUG, thisEntity<Player>.UserUID) {
+            return
+        }
+
+        InitFlagsManagerHUD()
+        _FlagsManagerHUD<CustomUI>.IsVisible = true
+    }
+
+    func HideFlagsManagerHUD() {
+        _FlagsManagerHUD<CustomUI>.IsVisible = false
+    }
+
+    func GetHUDWidget(eResKey EResKeyFlagsManager) entity<UIWidget> {
+        return GetWidgetFromCustomUI(thisEntity<Player>, _FlagsManagerHUD, Res.FlagsManager[eResKey])
+    }
+}
