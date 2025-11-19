@@ -1,20 +1,19 @@
 import "Hud.fcc" as Hud
 import "List.fcc" as List
+import "Convert.fcc" as Convert
+import "Database.fcc" as Database
 import "StdLibrary.fcc" as StdLib
 import "EditorGenLib.fcc" as EditorLib
 import Res from "EditorGenLib.fcc"
 
 graph HudFlagsManager {
-    MAP_CODES_LIVE Map<string, string> = Map<string, string>{
-        "SG": "#FREEFIRE532C973D597E17DAE80597EA6B8C2BF63758",
-        "US": "#FREEFIREC510D78844A5356D4427C6EFE2213E394182",
-        "IND": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
-    }
-    MAP_CODES_TEST Map<string, string> = Map<string, string>{
-        "SG": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
-        "US": "",
-        "IND": "",
-    }
+    MAP_CODE = ""
+    SHEET_FLAGS = "Flags"
+    KEY_FLAGS_STATUS = "Statuses"
+
+    OPERATION_METHOD_INC = 1
+    OPERATION_METHOD_DEC = 2
+
     UUID_PERMISSION_TO_DEBUG List<string> = List<string>{
         "513440537", // Tomo
         "10257800578", // Zuto SG 1
@@ -31,15 +30,41 @@ graph HudFlagsManager {
 
         "10001", // Editor
     }
-    FLAG_STATUSES List<string> = List<string>{
-        "FLAG_REARRANGE_PETS",
-        "FLAG_DECORATION",
-        "FLAG_DATA_TRACKING",
+    MAPS Map<int, string> = Map<int, string>{
+        0: "SG (Live)",
+        1: "US (Live)",
+        2: "IND (Live)",
+        3: "SG (Test)",
     }
+    MAP_CODES Map<string, string> = Map<string, string>{
+        "SG (Live)": "#FREEFIRE532C973D597E17DAE80597EA6B8C2BF63758",
+        "US (Live)": "#FREEFIREC510D78844A5356D4427C6EFE2213E394182",
+        "IND (Live)": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
+        "SG (Test)": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
+    }
+    FLAG_STATUSES Map<int, string> = Map<int, string>{
+        0: "FLAG_REARRANGE_PETS",
+        1: "FLAG_DECORATION",
+        2: "FLAG_DATA_TRACKING",
+    }
+
+    _FlagStatuses List<int>
 
     _FlagsManagerHUD entity<CustomUI>
     _FlagLabelsLayout entity<UIWidgetLayout>
     _FlagButtonsLayout entity<UIWidgetLayout>
+
+    event OnAwake() {
+        _FlagStatuses = List<int>{}
+        for key, flagStatus in FLAG_STATUSES {
+            for keyy, map in MAPS {
+                List.Append(_FlagStatuses, 0)
+            }
+        }
+    }
+
+    async func GetFlagsStatuses() {
+    }
 
     func InitFlagsManagerHUD() {
         if _FlagsManagerHUD != nil {
@@ -51,6 +76,34 @@ graph HudFlagsManager {
 
         _FlagLabelsLayout = GetHUDWidget(EResKeyFlagsManager.FlagLabels) as entity<UIWidgetLayout>
         _FlagButtonsLayout = GetHUDWidget(EResKeyFlagsManager.FlagButtonsLayout) as entity<UIWidgetLayout>
+
+        InitFlagLabels()
+        InitFlagButtons()
+    }
+
+    func InitFlagLabels() {
+        var flagLabelWidget entity<UIWidgetLabel> = GetChildByIndex(_FlagLabelsLayout, 0) as entity<UIWidgetLabel>
+        for key, flagLabel in FLAG_STATUSES {
+            if key == 0 {
+                flagLabelWidget<UIWidgetLabel>.Content = flagLabel
+                continue
+            }
+
+            StdLib.Clone(out var clonedFlagLabelWidget, flagLabelWidget)
+            clonedFlagLabelWidget<UIWidgetLabel>.Content = flagLabel
+        }
+    }
+
+    func InitFlagButtons() {
+        var flagButtonWidget entity<UIWidgetButton> = GetChildByIndex(_FlagButtonsLayout, 0) as entity<UIWidgetButton>
+        for key, flagStatus in FLAG_STATUSES {
+            if key == 0 {
+                continue
+            }
+
+            StdLib.Clone(out var clonedFlagButtonWidget, flagButtonWidget)
+            clonedFlagButtonWidget<UIWidget>.Priority = 6 * key + i
+        }
     }
 
     func ShowFlagsManagerHUD() {
@@ -68,5 +121,36 @@ graph HudFlagsManager {
 
     func GetHUDWidget(eResKey EResKeyFlagsManager) entity<UIWidget> {
         return GetWidgetFromCustomUI(thisEntity<Player>, _FlagsManagerHUD, Res.FlagsManager[eResKey])
+    }
+
+    func UpdateFlagStatus(flagButton entity<UIWidgetButton>) {
+        var flagPriority int = flagButton<UIWidget>.Priority
+        var flagIndex int = flagPriority / 6
+        var mapIndex int = flagPriority % 6
+
+        LogWarning("[UpdateFlagStatus] flag: " + FLAG_STATUSES[flagIndex] + ", map: " + MAPS[mapIndex])
+
+        var markIcon entity<UIWidgetImage> = GetChildByIndex(flagButton, 0) as entity<UIWidgetImage>
+        markIcon<UIWidget>.Active = !markIcon<UIWidget>.Active
+
+        var flagStatus int = 1
+        if !markIcon<UIWidget>.Active {
+            flagStatus = 0
+        }
+        _FlagStatuses[flagPriority] = flagStatus
+    }
+
+    func UpdateFlagsStatuses(mapIndex int) {
+        StringToInt(flagsDbStr, out var flagsDbInt, out var isSuccess)
+        if isSuccess {
+            WriteToAccumulatedDataStore(
+                SHEET_FLAGS,
+                KEY_FLAGS_STATUS,
+                OPERATION_METHOD_INC,
+                flagsDbInt,
+                MAP_CODE,
+                out var statusCode,
+            )
+        }
     }
 }

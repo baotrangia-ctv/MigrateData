@@ -4,111 +4,113 @@ import "StdLibrary.fcc" as StdLib
 import "EditorGenLib.fcc" as EditorLib
 
 import "../HUDs/HudPetsManager.fcg" as HudPetsManager
+import "../HUDs/HudFlagsManager.fcg" as HudFlagsManager
 
 graph CustomUIUtils {
+
     event OnTapButton(player entity<Player>, button entity<UIWidgetButton>) {
         // ------------ Pets Manager ------------
-        if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.GetDataButton) {
+        if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.GetDataButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed GetDataButton")
 
             player<HudPetsManager>.GetData()
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.MigrateDataButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.MigrateDataButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed MigrateDataButton")
 
             player<HudPetsManager>.MigrateData()
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.SGServerButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.SGServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerButton")
 
             player<HudPetsManager>.UpdateSrcMapCode("SG")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.USServerButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.USServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed USServerButton")
 
             player<HudPetsManager>.UpdateSrcMapCode("US")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.INDServerButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.INDServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed INDServerButton")
 
             player<HudPetsManager>.UpdateSrcMapCode("IND")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.SGServerTestButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.SGServerTestButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerTestButton")
 
             player<HudPetsManager>.UpdateDestMapCode("SG")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.USServerTestButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.USServerTestButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed USServerTestButton")
 
             player<HudPetsManager>.UpdateDestMapCode("US")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.INDServerTestButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.INDServerTestButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed INDServerTestButton")
 
             player<HudPetsManager>.UpdateDestMapCode("IND")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.ZutoSG1Button) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.ZutoSG1Button) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed ZutoSG1Button")
 
             player<HudPetsManager>.UpdateUIDs("Zuto SG 1")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.ZutoSG2Button) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.ZutoSG2Button) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed ZutoSG2Button")
 
             player<HudPetsManager>.UpdateUIDs("Zuto SG 2")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.ZutoUSButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.ZutoUSButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed ZutoUSButton")
 
             player<HudPetsManager>.UpdateUIDs("Zuto US")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.ZutoINDButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.ZutoINDButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed ZutoINDButton")
 
             player<HudPetsManager>.UpdateUIDs("Zuto IND")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.TomSG1Button) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.TomSG1Button) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed TomSG1Button")
 
             player<HudPetsManager>.UpdateUIDs("Tom SG 1")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.TomSG2Button) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.TomSG2Button) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed TomSG2Button")
 
             player<HudPetsManager>.UpdateUIDs("Tom SG 2")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.TomUSButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.TomUSButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed TomUSButton")
 
             player<HudPetsManager>.UpdateUIDs("Tom US")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.TomINDButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.TomINDButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed TomINDButton")
 
             player<HudPetsManager>.UpdateUIDs("Tom IND")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.TomoButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.TomoButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed TomoButton")
 
             player<HudPetsManager>.UpdateUIDs("Tomo")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.VyButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.VyButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed VyButton")
 
             player<HudPetsManager>.UpdateUIDs("Vy")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.CodexButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.CodexButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed CodexButton")
 
             player<HudPetsManager>.UpdateUIDs("Codex")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.DuckButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.DuckButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed DuckButton")
 
             player<HudPetsManager>.UpdateUIDs("Duck")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.CapButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.CapButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed CapButton")
 
             player<HudPetsManager>.UpdateUIDs("Cap")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.ChanhButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.ChanhButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed ChanhButton")
 
             player<HudPetsManager>.UpdateUIDs("Chanh")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.HungButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.HungButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed HungButton")
 
             player<HudPetsManager>.UpdateUIDs("Hung")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.SonButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.SonButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SonButton")
 
             player<HudPetsManager>.UpdateUIDs("Son")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.VuongButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.VuongButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed VuongButton")
 
             player<HudPetsManager>.UpdateUIDs("Vuong")
-        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.SwitchFlagsManagerButton) {
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIPetsManager.SwitchFlagsManagerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SwitchFlagsManagerButton")
 
             player<HudPetsManager>.HidePetsManagerHUD()
@@ -117,11 +119,33 @@ graph CustomUIUtils {
 
 
         // ------------ Flags Manager ------------
-        if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIDataControl.GetDataButton) {
-            LogInfo("[OnCustomButtonTapped] " + player + "pressed GetDataButton")
+        if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.SwitchPetsManagerButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed SwitchPetsManagerButton")
 
-            
+            player<HudFlagsManager>.HideFlagsManagerHUD()
+            player<HudPetsManager>.ShowPetsManagerHUD()
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.SGServerButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerButton")
+
+            player<HudPetsManager>.UpdateSrcMapCode("SG (Live)")
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.USServerButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed USServerButton")
+
+            player<HudPetsManager>.UpdateSrcMapCode("US (Live)")
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.INDServerButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed INDServerButton")
+
+            player<HudPetsManager>.UpdateSrcMapCode("IND (Live)")
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.SGServerTestButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerTestButton")
+
+            player<HudPetsManager>.UpdateDestMapCode("SG (Test)")
         } else {}
+
+        LogWarning(button<Entity>.Name)
+        if button<Entity>.Name == "FlagButton" {
+            player<HudFlagsManager>.UpdateFlagStatus(button)
+        }
     }
 
     func IsContainButton(button entity<UIWidget>, player entity<Player>, buttonIdsList List<CustomHudWidgetID>) bool {
