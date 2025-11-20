@@ -127,22 +127,29 @@ graph CustomUIUtils {
         } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.SGServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerButton")
 
-            player<HudPetsManager>.UpdateSrcMapCode("SG (Live)")
+            player<HudFlagsManager>.UpdateMapCode("SG (Live)")
         } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.USServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed USServerButton")
 
-            player<HudPetsManager>.UpdateSrcMapCode("US (Live)")
+            player<HudFlagsManager>.UpdateMapCode("US (Live)")
         } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.INDServerButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed INDServerButton")
 
-            player<HudPetsManager>.UpdateSrcMapCode("IND (Live)")
+            player<HudFlagsManager>.UpdateMapCode("IND (Live)")
         } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.SGServerTestButton) {
             LogInfo("[OnCustomButtonTapped] " + player + "pressed SGServerTestButton")
 
-            player<HudPetsManager>.UpdateDestMapCode("SG (Test)")
+            player<HudFlagsManager>.UpdateMapCode("SG (Test)")
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.GetFlagsStatusesButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed GetFlagsStatusesButton")
+
+            player<HudFlagsManager>.GetFlagsStatuses()
+        } else if button == GetWidgetFromCustomUI(player, button<UIWidget>.ParentUI, EResUIFlagsManager.UpdateFlagsStatusesButton) {
+            LogInfo("[OnCustomButtonTapped] " + player + "pressed UpdateFlagsStatusesButton")
+
+            player<HudFlagsManager>.UpdateFlagsStatuses()
         } else {}
 
-        LogWarning(button<Entity>.Name)
         if button<Entity>.Name == "FlagButton" {
             player<HudFlagsManager>.UpdateFlagStatus(button)
         }

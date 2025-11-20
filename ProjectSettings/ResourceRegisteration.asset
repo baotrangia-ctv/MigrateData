@@ -206,6 +206,14 @@
             {
               "id": "BdUD5Y5W",
               "scriptName": "SGServerTestButton"
+            },
+            {
+              "id": "JgdbIYCc",
+              "scriptName": "MapCodeTextbox"
+            },
+            {
+              "id": "zVFjr5Ws",
+              "scriptName": "GetFlagsStatusesButton"
             }
           ]
         }

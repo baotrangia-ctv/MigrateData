@@ -7,7 +7,6 @@ import "EditorGenLib.fcc" as EditorLib
 import Res from "EditorGenLib.fcc"
 
 graph HudFlagsManager {
-    MAP_CODE = ""
     SHEET_FLAGS = "Flags"
     KEY_FLAGS_STATUS = "Statuses"
 
@@ -41,6 +40,7 @@ graph HudFlagsManager {
         "US (Live)": "#FREEFIREC510D78844A5356D4427C6EFE2213E394182",
         "IND (Live)": "#FREEFIRE1AD9443C0B19419A8A087CBB92A564A58015",
         "SG (Test)": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
+        "SG (Test)": "#FREEFIREB44386D804B1D12991FA9B365E3F313E3758",
     }
     FLAG_STATUSES Map<int, string> = Map<int, string>{
         0: "FLAG_REARRANGE_PETS",
@@ -48,9 +48,11 @@ graph HudFlagsManager {
         2: "FLAG_DATA_TRACKING",
     }
 
+    _CurrentDbFlagStatuses int
     _FlagStatuses List<int>
 
     _FlagsManagerHUD entity<CustomUI>
+    _MapCodeTextbox entity<UIWidgetInputLabel>
     _FlagLabelsLayout entity<UIWidgetLayout>
     _FlagButtonsLayout entity<UIWidgetLayout>
 
@@ -63,9 +65,6 @@ graph HudFlagsManager {
         }
     }
 
-    async func GetFlagsStatuses() {
-    }
-
     func InitFlagsManagerHUD() {
         if _FlagsManagerHUD != nil {
             return
@@ -74,6 +73,7 @@ graph HudFlagsManager {
         CreateCustomUI(out var FlagsManagerHud, thisEntity<Player>, EResUI.FlagsManager)
         _FlagsManagerHUD = FlagsManagerHud
 
+        _MapCodeTextbox = GetHUDWidget(EResKeyFlagsManager.MapCodeTextbox) as entity<UIWidgetInputLabel>
         _FlagLabelsLayout = GetHUDWidget(EResKeyFlagsManager.FlagLabels) as entity<UIWidgetLayout>
         _FlagButtonsLayout = GetHUDWidget(EResKeyFlagsManager.FlagButtonsLayout) as entity<UIWidgetLayout>
 
@@ -102,7 +102,7 @@ graph HudFlagsManager {
             }
 
             StdLib.Clone(out var clonedFlagButtonWidget, flagButtonWidget)
-            clonedFlagButtonWidget<UIWidget>.Priority = 6 * key + i
+            clonedFlagButtonWidget<UIWidget>.Priority = key
         }
     }
 
@@ -123,6 +123,10 @@ graph HudFlagsManager {
         return GetWidgetFromCustomUI(thisEntity<Player>, _FlagsManagerHUD, Res.FlagsManager[eResKey])
     }
 
+    func UpdateMapCode(server string) {
+        _MapCodeTextbox<UIWidgetInputLabel>.ActiveText = MAP_CODES[server]
+    }
+
     func UpdateFlagStatus(flagButton entity<UIWidgetButton>) {
         var flagPriority int = flagButton<UIWidget>.Priority
         var flagIndex int = flagPriority / 6
@@ -140,17 +144,56 @@ graph HudFlagsManager {
         _FlagStatuses[flagPriority] = flagStatus
     }
 
-    func UpdateFlagsStatuses(mapIndex int) {
+    async func GetFlagsStatuses() {
+        var mapCode string = _MapCodeTextbox<UIWidgetInputLabel>.ActiveText
+        wait ReadFromAccumulatedDataStore(
+            SHEET_FLAGS,
+            KEY_FLAGS_STATUS,
+            out var result,
+            mapCode,
+            out var StatusCode,
+        )
+
+        _CurrentDbFlagStatuses = result
+
+        var index int = 0
+        while result >= 0 && index < List.Length(_FlagStatuses) {
+            var flagStatus int = result % 10
+            _FlagStatuses[index] = flagStatus
+
+            var flagButton entity<UIWidgetButton> = GetChildByIndex(_FlagButtonsLayout, index) as entity<UIWidgetButton>
+            var markIcon entity<UIWidgetImage> = GetChildByIndex(flagButton, 0) as entity<UIWidgetImage>
+            if flagStatus == 1 {
+                markIcon<UIWidget>.Active = true
+            } else {
+                markIcon<UIWidget>.Active = false
+            }
+
+            result = result / 10
+            index += 1
+        }
+    }
+
+    func UpdateFlagsStatuses() {
+        var flagsDbStr int = 0
+        for i = List.Length(_FlagStatuses) - 1, -1, -1 {
+            flagsDbStr = flagsDbStr * 10 + _FlagStatuses[i]
+        }
+
+        var mapCode string = _MapCodeTextbox<UIWidgetInputLabel>.ActiveText
         StringToInt(flagsDbStr, out var flagsDbInt, out var isSuccess)
         if isSuccess {
+            var updateValue int = flagsDbInt - _CurrentDbFlagStatuses
             WriteToAccumulatedDataStore(
                 SHEET_FLAGS,
                 KEY_FLAGS_STATUS,
                 OPERATION_METHOD_INC,
-                flagsDbInt,
-                MAP_CODE,
+                updateValue,
+                mapCode,
                 out var statusCode,
             )
         }
+
+        LogWarning("[UpdateFlagsStatuses] mapCode: " + mapCode + ", flagsDbStr: " + flagsDbStr)
     }
 }
